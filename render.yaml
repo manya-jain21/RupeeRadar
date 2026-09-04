@@ -10,7 +10,7 @@ services:
       - key: PORT
         value: 10000
 
-  - type: background
+  - type: worker
     name: rupeeradar-simulator
     env: python
     buildCommand: "pip install -r backend/requirements.txt"
