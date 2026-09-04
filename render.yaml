@@ -9,14 +9,7 @@ services:
         value: 3.11.0
       - key: PORT
         value: 10000
-
-  - type: worker
-    name: rupeeradar-simulator
-    env: python
-    buildCommand: "pip install -r backend/requirements.txt"
-    startCommand: "cd backend && python scripts/simulate_live_stream.py"
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
       - key: INGEST_URL
-        value: "https://rupeeradar-backend.onrender.com/api/v1/complaints/ingest"
+        value: "http://localhost:10000/api/v1/complaints/ingest"
+
+
