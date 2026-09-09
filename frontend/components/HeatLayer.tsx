@@ -10,18 +10,17 @@ export default function HeatLayer({ points }: { points: any[] }) {
 
   useEffect(() => {
     if (!map) return;
-    
-    // Create heat layer
-    // @ts-ignore - leaflet.heat adds this to L
+
+    // @ts-ignore
     const heatLayer = L.heatLayer(points, {
       radius: 25,
       blur: 15,
       maxZoom: 14,
       gradient: {
-        0.4: '#00f0ff', // Cyber blue
-        0.6: '#fcee0a', // Cyber yellow
-        0.8: '#ff003c', // Cyber pink
-        1.0: '#ff0000'  // Pure red
+        0.2: '#E3F2FD',
+        0.4: '#90CAF9',
+        0.7: '#2196F3',
+        1.0: '#0D47A1'
       }
     }).addTo(map);
 

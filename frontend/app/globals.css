@@ -1,53 +1,63 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cyber-blue: #00f0ff;
-  --color-cyber-pink: #ff003c;
-  --color-cyber-yellow: #fcee0a;
-  --color-cyber-dark: #0f172a;
-  --color-cyber-darker: #020617;
-  --color-cyber-glass: rgba(15, 23, 42, 0.7);
-  --color-cyber-glass-border: rgba(0, 240, 255, 0.2);
+  --color-deep: #293681;     /* Primary - headers, active nav, emphasis */
+  --color-blue: #4274D9;     /* Accent - buttons, links, active states */
+  --color-sky: #95CCDD;      /* Secondary accent - borders, hover, chips */
+  --color-mist: #D0E7E6;     /* Light surface - subtle backgrounds, dividers */
+  --color-navy: #0F172A;     /* Dark surface - sidebar, dark panels */
+  --color-indigo: #334155;   /* Borders on dark surfaces */
+  --color-amber: #F59E0B;    /* Alerts / risk flags */
+  --color-cloud: #F8FAFC;    /* Page background */
+
+  --font-heading: var(--font-space-grotesk), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
 }
 
 body {
-  background-color: var(--color-cyber-darker);
-  color: white;
-  font-family: 'Inter', sans-serif;
+  background-color: var(--color-cloud);
+  color: var(--color-navy);
+  font-family: var(--font-body);
   overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-heading);
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-cyber-darker);
+  background: var(--color-cloud);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-cyber-blue);
+  background: var(--color-sky);
   border-radius: 4px;
 }
 
-/* Leaflet Map Dark Mode Fix */
 .leaflet-container {
-  background: #0f172a !important;
+  background: var(--color-navy) !important;
 }
-.leaflet-layer,
-.leaflet-control-zoom-in,
-.leaflet-control-zoom-out,
 .leaflet-control-attribution {
-  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+  background: rgba(15, 23, 42, 0.8) !important;
+  color: #94a3b8 !important;
+}
+.leaflet-control-attribution a {
+  color: var(--color-blue) !important;
 }
 
-.glass-panel {
-  background: var(--color-cyber-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-cyber-glass-border);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+.panel {
+  background: #ffffff;
+  border: 1px solid var(--color-mist);
+  box-shadow: 0 1px 3px rgba(41, 54, 129, 0.08);
 }
 
-.glow-text {
-  text-shadow: 0 0 10px var(--color-cyber-blue);
+.panel-dark {
+  background: var(--color-navy);
+  border: 1px solid var(--color-indigo);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }

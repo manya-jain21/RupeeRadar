@@ -1,28 +1,18 @@
 import './globals.css';
-import type { Metadata } from 'next';
-import Sidebar from '../components/Sidebar';
+import { Space_Grotesk, Inter } from 'next/font/google';
+import Navbar from '../components/Navbar';
 
-export const metadata: Metadata = {
-  title: 'RupeeRadar - Cybercrime Predictor',
-  description: 'Predictive Analytics Framework for Cybercrime Complaints',
-};
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const metadata = { title: 'RupeeRadar', description: 'Cybercrime Analytics Platform' };
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </head>
-      <body className="bg-cyber-darker text-white h-screen w-screen overflow-hidden flex">
-        <Sidebar />
-        <div className="flex-1 h-full relative overflow-hidden flex flex-col">
-          {children}
-        </div>
+    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
+      <body suppressHydrationWarning className="h-screen w-screen overflow-hidden relative">
+        <Navbar />
+        {children}
       </body>
     </html>
   );
