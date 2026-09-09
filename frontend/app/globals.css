@@ -40,8 +40,7 @@ h1, h2, h3, h4, .font-heading {
   background: var(--color-navy) !important;
 }
 .leaflet-control-attribution {
-  background: rgba(15, 23, 42, 0.8) !important;
-  color: #94a3b8 !important;
+  display: none !important;
 }
 .leaflet-control-attribution a {
   color: var(--color-blue) !important;
@@ -60,4 +59,10 @@ h1, h2, h3, h4, .font-heading {
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+.leaflet-tooltip {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35) !important;
+}
+.leaflet-tooltip-right::before {
+  border-right-color: #111827 !important;
 }
