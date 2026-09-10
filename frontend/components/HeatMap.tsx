@@ -13,7 +13,8 @@ const Tooltip = dynamic(() => import('react-leaflet').then(m => m.Tooltip), { ss
 const HeatLayer = dynamic(() => import('./HeatLayer'), { ssr: false });
 
 // Generates synthetic offset positions for mule-account nodes around a target ATM
-function buildTrailNodes(targetLat: number, targetLon: number, chain: string[]) {
+function buildTrailNodes(targetLat: number, targetLon: number, chain: string[], riskScore: number) {
+  const atmColor = riskScore > 90 ? '#C3110C' : '#0EA5E9';
   const nodes = [{ label: 'Fraud Origin', lat: targetLat + 0.025, lon: targetLon - 0.02, color: '#EF4444' }];
   chain.forEach((id, i) => {
     const t = (i + 1) / (chain.length + 1);
@@ -24,7 +25,7 @@ function buildTrailNodes(targetLat: number, targetLon: number, chain: string[]) 
       color: '#F59E0B',
     });
   });
-  nodes.push({ label: 'Target ATM', lat: targetLat, lon: targetLon, color: '#0EA5E9' });
+  nodes.push({ label: 'Target ATM', lat: targetLat, lon: targetLon, color: atmColor });
   return nodes;
 }
 
@@ -45,7 +46,7 @@ export default function HeatMap({ atms, predictions, complaints }: any) {
   ]) || [];
 
   const trailNodes = activeTrail
-    ? buildTrailNodes(activeTrail.lat, activeTrail.lon, activeTrail.chain)
+    ? buildTrailNodes(activeTrail.lat, activeTrail.lon, activeTrail.chain, activeTrail.riskScore)
     : null;
 
   return (
@@ -59,24 +60,21 @@ export default function HeatMap({ atms, predictions, complaints }: any) {
         {heatPoints.length > 0 && <HeatLayer points={heatPoints} />}
 
         {predictions?.map((pred: any, idx: number) => (
-          <CircleMarker
-            key={idx}
-            center={[pred.lat, pred.lon]}
-            radius={8}
-            pathOptions={{ color: '#0D47A1', fillColor: '#2196F3', fillOpacity: 0.85, weight: 2 }}
-            eventHandlers={{
-              click: () => setActiveTrail({
-                lat: pred.lat,
-                lon: pred.lon,
-                chain: (pred.mule_account_chain?.split(',')) ?? ['a3f8ad25', '5033b07f', 'bd6f9a12'],
-              }),
-            }}
-          >
-            <Tooltip direction="top" offset={[0, -8]}>
-              {pred.bank} · Risk {pred.risk_score}
-            </Tooltip>
-          </CircleMarker>
-        ))}
+  <CircleMarker
+    key={idx}
+    center={[pred.lat, pred.lon]}
+    radius={8}
+    pathOptions={{
+      color: pred.risk_score > 90 ? '#C3110C' : '#0D47A1',
+      fillColor: pred.risk_score > 90 ? '#C3110C' : '#2196F3',
+      fillOpacity: 0.85,
+      weight: 2
+    }}
+    eventHandlers={{ ... }}
+  >
+    <Tooltip>...</Tooltip>
+  </CircleMarker>
+))}
 
         {trailNodes && (
   <>
