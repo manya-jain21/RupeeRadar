@@ -60,21 +60,29 @@ export default function HeatMap({ atms, predictions, complaints }: any) {
         {heatPoints.length > 0 && <HeatLayer points={heatPoints} />}
 
         {predictions?.map((pred: any, idx: number) => (
-  <CircleMarker
-    key={idx}
-    center={[pred.lat, pred.lon]}
-    radius={8}
-    pathOptions={{
-      color: pred.risk_score > 90 ? '#C3110C' : '#0D47A1',
-      fillColor: pred.risk_score > 90 ? '#C3110C' : '#2196F3',
-      fillOpacity: 0.85,
-      weight: 2
-    }}
-    eventHandlers={{ ... }}
-  >
-    <Tooltip>...</Tooltip>
-  </CircleMarker>
-))}
+          <CircleMarker
+            key={idx}
+            center={[pred.lat, pred.lon]}
+            radius={8}
+            pathOptions={{
+              color: pred.risk_score > 90 ? '#C3110C' : '#0D47A1',
+              fillColor: pred.risk_score > 90 ? '#C3110C' : '#2196F3',
+              fillOpacity: 0.85,
+              weight: 2
+            }}
+            eventHandlers={{
+              click: () => setActiveTrail({
+                lat: pred.lat,
+                lon: pred.lon,
+                chain: (pred.mule_account_chain?.split(',')) ?? ['a3f8ad25', '5033b07f', 'bd6f9a12'],
+              }),
+            }}
+          >
+            <Tooltip direction="top" offset={[0, -8]}>
+              {pred.bank} · Risk {pred.risk_score}
+            </Tooltip>
+          </CircleMarker>
+        ))}
 
         {trailNodes && (
   <>
