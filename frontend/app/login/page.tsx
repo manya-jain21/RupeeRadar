@@ -3,8 +3,7 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../../lib/auth';
-import { AUTHORIZED_PERSONNEL } from '../../lib/authConfig';
-import { ShieldCheck, Lock, User, ShieldAlert, ArrowRight, KeyRound, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Lock, User, ShieldAlert, ArrowRight } from 'lucide-react';
 
 function LoginContent() {
   const router = useRouter();
@@ -39,12 +38,6 @@ function LoginContent() {
     }
   };
 
-  const handleQuickFill = (username: string, pass: string) => {
-    setIdentifier(username);
-    setPassword(pass);
-    setError(null);
-  };
-
   return (
     <div className="min-h-screen w-screen bg-navy flex items-center justify-center p-4 relative overflow-hidden select-none">
       {/* High-tech radial mesh glow & grid lines */}
@@ -61,18 +54,18 @@ function LoginContent() {
       <div className="relative z-10 w-full max-w-md">
         {/* Top Header pill */}
         <div className="flex items-center justify-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-navy/90 border border-indigo text-[11px] font-mono tracking-widest text-sky uppercase shadow-md">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy/90 border border-indigo text-[11px] font-mono tracking-widest text-sky uppercase shadow-md">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             <span>Terminal 01 // Secure Node Active</span>
           </div>
         </div>
 
-        <div className="bg-slate-900/90 backdrop-blur-xl border border-indigo/80 rounded-2xl p-7 shadow-2xl relative overflow-hidden">
+        <div className="bg-slate-900/90 backdrop-blur-xl border border-indigo/80 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
           {/* Subtle accent bar at top of card */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-deep via-blue to-sky" />
 
           {/* Platform Branding */}
-          <div className="text-center mb-6">
+          <div className="text-center mb-7">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue/10 border border-blue/40 mb-3 shadow-[0_0_20px_rgba(66,116,217,0.25)]">
               <ShieldCheck size={32} className="text-blue" />
             </div>
@@ -82,7 +75,7 @@ function LoginContent() {
             <p className="text-xs font-mono uppercase tracking-widest text-slate-400 mt-1">
               Restricted Intelligence Portal
             </p>
-            <div className="mt-2 text-[11px] text-amber font-medium bg-amber/10 border border-amber/30 rounded-md py-1 px-2.5 inline-block">
+            <div className="mt-2.5 text-[11px] text-amber font-medium bg-amber/10 border border-amber/30 rounded-md py-1 px-3 inline-block">
               Authorized Personnel Access Only
             </div>
           </div>
@@ -107,7 +100,7 @@ function LoginContent() {
                   type="text"
                   required
                   autoFocus
-                  placeholder="aditya / manya or badge ID"
+                  placeholder="Enter personnel ID"
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
                   className="w-full bg-slate-950/70 border border-indigo text-white text-sm rounded-lg pl-10 pr-4 py-2.5 placeholder:text-slate-600 focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-all"
@@ -124,7 +117,7 @@ function LoginContent() {
                 <input
                   type="password"
                   required
-                  placeholder="name@ruppeeradar"
+                  placeholder="Enter security key"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full bg-slate-950/70 border border-indigo text-white text-sm rounded-lg pl-10 pr-4 py-2.5 placeholder:text-slate-600 focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue transition-all font-mono"
@@ -135,7 +128,7 @@ function LoginContent() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full mt-2 py-3 bg-blue hover:bg-blue/90 active:scale-[0.99] text-white font-heading font-semibold text-sm uppercase tracking-wider rounded-lg shadow-lg shadow-blue/25 transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+              className="w-full mt-3 py-3 bg-blue hover:bg-blue/90 active:scale-[0.99] text-white font-heading font-semibold text-sm uppercase tracking-wider rounded-lg shadow-lg shadow-blue/25 transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
             >
               {isSubmitting ? (
                 <>
@@ -150,44 +143,6 @@ function LoginContent() {
               )}
             </button>
           </form>
-
-          {/* Quick Authorization Selector */}
-          <div className="mt-6 pt-5 border-t border-indigo/60">
-            <div className="flex items-center justify-between mb-2.5">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                <KeyRound size={12} className="text-sky" /> Authorized Personnel
-              </span>
-              <span className="text-[10px] text-slate-500 font-mono">2 Registered</span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              {AUTHORIZED_PERSONNEL.map((p) => {
-                const isSelected = identifier.toLowerCase() === p.username;
-                return (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => handleQuickFill(p.username, p.passwords[0])}
-                    className={`text-left p-2.5 rounded-lg border transition-all cursor-pointer ${
-                      isSelected
-                        ? 'bg-blue/15 border-blue text-white'
-                        : 'bg-slate-950/50 border-indigo/60 text-slate-300 hover:border-slate-500 hover:bg-slate-950/80'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-heading font-semibold text-xs capitalize text-white">
-                        {p.username}
-                      </span>
-                      {isSelected && <CheckCircle2 size={12} className="text-blue" />}
-                    </div>
-                    <div className="text-[10px] text-slate-400 font-mono mt-0.5 truncate">
-                      {p.role.replace('Senior ', '').replace('Lead ', '')}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
         </div>
 
         {/* Security Compliance Footer */}

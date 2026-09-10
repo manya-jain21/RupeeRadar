@@ -46,7 +46,7 @@ export default function Navbar() {
         ))}
       </div>
 
-      {/* Authenticated Personnel Badge & Logout */}
+      {/* Authenticated Personnel Badge & Sign Out */}
       <div className="flex items-center gap-3">
         {isAuthenticated && user && (
           <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-slate-900/90 border border-indigo/60 text-xs">
@@ -66,11 +66,11 @@ export default function Navbar() {
         {isAuthenticated && (
           <button
             onClick={logout}
-            title="Disconnect Terminal (Logout)"
-            className="flex items-center gap-1 px-2.5 py-1 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-full border border-transparent hover:border-red-500/20 text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer"
+            title="Sign Out"
+            className="flex items-center gap-1.5 px-3 py-1 text-slate-300 hover:text-red-400 hover:bg-red-500/10 rounded-full border border-indigo/40 hover:border-red-500/30 text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer"
           >
             <LogOut size={14} />
-            <span className="hidden md:inline">Exit</span>
+            <span>Sign Out</span>
           </button>
         )}
       </div>
