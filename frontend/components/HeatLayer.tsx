@@ -17,10 +17,10 @@ export default function HeatLayer({ points }: { points: any[] }) {
       blur: 15,
       maxZoom: 14,
       gradient: {
-        0.2: '#E3F2FD',
-        0.4: '#90CAF9',
-        0.7: '#2196F3',
-        1.0: '#0D47A1'
+        0.2: '#FEE2E2',
+        0.4: '#FCA5A5',
+        0.7: '#EF4444',
+        1.0: '#7F1D1D'
       }
     }).addTo(map);
 
