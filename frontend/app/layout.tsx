@@ -12,11 +12,11 @@ export const metadata = { title: 'RupeeRadar', description: 'Cybercrime Analytic
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
-      <body suppressHydrationWarning className="h-screen w-screen overflow-hidden relative">
+      <body suppressHydrationWarning className="min-h-screen w-full relative bg-cloud overflow-x-hidden">
         <AuthProvider>
           <AuthGuard>
             <Navbar />
-            {children}
+            <main className="w-full min-h-screen">{children}</main>
           </AuthGuard>
         </AuthProvider>
       </body>
